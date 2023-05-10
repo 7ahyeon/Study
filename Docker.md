@@ -30,11 +30,17 @@
 **레이어 저장 방식 : 유니온 파일 시스템(UFS)**
 - Docker Image : 수백 메가MB의 용량 : 처음 이미지 다운(부담X) → 기존 이미지에 파일 하나 추가(수백메가 다시 다운) : 비효율
 - 이미지는 여러개의 읽기 전용Read Only 레이어로 구성되고 파일이 추가되거나 수정되면 새로운 레이어 생성
-- ex: ubuntu 이미지 : '''A+B+C'''의 집합 / ubuntu 이미지를 베이스로 만든 nginx 이미지 : A+B+C+nginx의 집합
+- ex: ubuntu 이미지 : A+B+C 레이어 구성
+- nginx 이미지(ubuntu 이미지 베이스) : A+B+C+nginx 레이어 구성
+- webapp 이미지(nginx 이미지 베이스) : A+B+C+nginx+source 레이어 구성
+- webapp 소스 수정! A+B+C+nginx 레이어 제외 새로운 source(ver2) 레이어만 다운 받으면 됨! (효율적인 이미지 관리 가능!)
 
 **UFS의 Copy on Write(COW) 전략**
-- 하위 레이어(base layer) 위에 새로운 layer가 쌓일 경우, 하위 layer는 READ ONLY 상태가 된다.
-- 상위 layer에서 하위 layer를 복사하여 사용(CoW)하기 때문에, 상위 layer는 하위 layer에 아무런 영향을 주지 않는다.
+- 하위 레이어(base layer) 위에 새로운 layer가 쌓일 경우, 하위 layer는 READ ONLY 상태가 됨
+- 상위 layer에서 하위 layer를 복사하여 사용(CoW)하기 때문에, 상위 layer는 하위 layer에 아무런 영향을 주지 않음
+- 이미지 레이어를 그대로 사용하면서 컨테이너가 실행중에 생성하는 파일이나 변경된 내용은 읽기/쓰기 레이어에 저장됨
+- 여러 개의 컨테이너를 생성해도 최소한의 용량만 사용
+- 가상화 특성 : 이미지 용량이 크고 여러 대의 서버에 배포하는걸 감안한 설계!
 
 **기존 이미지**
 - ubuntu 이미지 : ubuntu를 실행하기 위한 모든 파일 포함
