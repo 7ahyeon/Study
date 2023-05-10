@@ -15,6 +15,8 @@
 - 호스트 운영 체제에서 애플리케이션을 실행하기 위해 격리된 경량 사일로
 
 **이미지 Image**
+![Docker_Image](https://github.com/7ahyeon/Study/assets/107123698/96e8969e-9dbc-40ff-9ef2-646af048bcf4)
+
 - 
 
 **기존 가상화**
