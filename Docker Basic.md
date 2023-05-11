@@ -9,7 +9,14 @@
 </br>
 
 - **도커의 성공** : 기술적 혁신X / 컨테이너의 약점 보완 후 편리한 인터페이스 제공
-
+- **도커의 역할**
+- 1. 소스 저장소에 소스 저장(개발자)
+- **Docker에서 2-6 자동화!**
+- 2. 전체 소스 다운로드
+- 3. 테스트
+- 4. Docker 이미지 만들기(Build)
+- 5. Docker 이미지 저장(Push)
+- 6. 애플리케이션 업데이트(Pull)
 </br>
 
 **Docker 사용**
@@ -154,7 +161,14 @@
 - 1. docker run : client(명령을 API로 보냄) → dockerd(실행)
 - 2. client : 유닉스 소켓(같은 호스트 내에 있는 docker daemon에게 명령 전달할 때 사용)을 통해 docker daemon의 API 호출
 - 2-1. TCP로 원격 도커 데몬 제어하는 방법 존재
-- 
+</br>
+
+# CI/CD
+- 애플리케이션 개발 단계 자동화 (짧은 주기로 제공)
+- CI (Continuous Integration) : 지속적 통합 / 테스트-빌드(배포 포함할 때 있음)
+- CD (Continuous Delivery) : 지속적 배포 / " + 전달/배포
+- CI/CD 혼용해서 쓰는 경우도 많음
+- CI/CD 툴 : Jenkins
+</br>
 
 
-# CI
