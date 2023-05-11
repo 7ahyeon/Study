@@ -106,9 +106,55 @@
 |오버헤드|물리머신과 비교해도 성능저하 거의 없음|CPU는 약 5배/메모리, 파일IO은 약 2배의 시간이 걸림(성능 저하)|
 </br>
   
-  
   **결론**
   - 물리적 하드웨어를 논리적 분할하기 위해서 VM을 이용하는건 이전 방식
   - AWS, Nutanix 등과 같이 기반 OS를 제공하는 방식으로 컨테이너는 그 위의 서비스를 격리시켜 장애에 대비할 수 있도록 하고 개발 편리를 제공하는 방식으로 변함!
+  </br>
   
-  
+  # LXC
+- 리눅스 커널의 cgroups와 namespaces를 이용하여 격리된 공간
+</br>
+
+# cgroups(Control Groups)
+- CPU, 메모리, 보조기억장치, 네트워크 등의 자원을 할당하는 가상화 공간 제공
+-  **namespaces** : process tree, 사용자 계정, file system, IPC 등을 격리 시켜서 Host OS와 완벽하게 격리된 공간 생성 
+</br>
+
+# chroot(Chenge Root Directory)
+- 루트 디렉터리 '/'를 변경
+- 목적 : **디렉토리 경로를 격리**시킴으로써 데이터 유출 및 피해 최소화
+- 이전 : chroot jail 환경 안에서 필요한 라이브러리 미리 준비해야함/복잡한 설정 방법/완벽한 가상환경X(많은 제약)
+- **LXC(Linux Container) 등장** : 시스템 레벨의 가상화 : 리눅스 커널 레벨에서 제공되는 격리된 가상화 공간
+- 가상머신VM과 달리 컴퓨터나 OS자체를 가상화하지 않음 : 컨테이너
+</br>
+
+# chroot 예제
+- 동적 라이브러리 : 시스템 상 다른 파일에 의존하고 있음(의존성 패키지 존재)
+- chroot로 프로세스 격리 후 /bin/bash 기능 추가
+- 1. ldd : 의존성 패키지 확인(linux-vdso.so.1:가상 라이브러리)
+- 2. mkdir -p : 파일을 새로운 루트 디렉터리 아래 복사 하기 위하여 폴더 생성
+- 3. cp : 호스트 OS로부터 파일 복사(파일 위치 유지)
+- 4. tree : 디렉터리 구조 확인
+- 5. chroot : bash 실행중 확인
+- 6. pwd : 현재 위치 확인
+- 7. bin/ls도 1-4까지 반복
+- 8. ls : 파일 목록 출력(호스트 OS로부터 프로세스 격리된 것 확인)
+</br>
+
+# Docker chroot : docker run
+- 위의 과정을 명령어 하나로 자동 수행
+- **호스트 OS**에서는 **컨테이너 내부 공간 접근 가능**
+- **컨테이너 내부**에선 **호스트 OS 공간에 접근 불가**
+</br>
+
+# Docker client(command, CLI) / Server(docker daemon)
+- Docker : 클라이언트-서버 구조
+- **client** : Docker 사용자가 Docker와 상호작용하는 기본 방법 (Docker daemon이 API를 사용할 수 있도록 CLI(Command Line Interface)제공)
+- **daemon(dockerd)** " API 요청 수신. Docker객체(이미지, 컨테이너, 네트워크 및 볼륨) 관리 (도커 프로세스가 실행되어 서버로서 입력 받을 준비가 된 상태/API 입력을 받아 도커 엔진의 기능 수행)
+- 1. docker run : client(명령을 API로 보냄) → dockerd(실행)
+- 2. client : 유닉스 소켓(같은 호스트 내에 있는 docker daemon에게 명령 전달할 때 사용)을 통해 docker daemon의 API 호출
+- 2-1. TCP로 원격 도커 데몬 제어하는 방법 존재
+- 
+
+
+# CI
