@@ -1,6 +1,6 @@
 # DevOps
-` Software development(Dev) + IT operations(Ops) 
- **소프트웨어 개발 및 IT 운영 작업 통합/자동화** `  
+` Software development(Dev) + IT operations(Ops) '
+-  **소프트웨어 개발 및 IT 운영 작업 통합/자동화**  
 
 - **AWS :** 애플리케이션과 서비스를 빠른 속도로 제공할 수 있도록 조직 역량을 향상시키는 문화 철학, 방식 및 도구의 조합
 - **RedHat :** legacy apps을 최신 cloud-native apps 및 인프라와 연결하는 것
