@@ -1,8 +1,8 @@
 
 # Test-Driven-Development(TDD)
 > # 프로그램을 작성하기 전에 테스트 먼저 하라!
-> ` **Test the program before you write it!**
->  - ‹TDD by Example> Kent Beck`
+> > **Test the program before you write it!**
+> > - ‹TDD by Example> Kent Beck`
 </br>
 
 - **테스트 주도 개발**
