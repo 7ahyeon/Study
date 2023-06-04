@@ -1,0 +1,8 @@
+# Setting
+
+JDK 1.8
+Apache Tomcat 9.0.75
+Maven 3.6.3 (3.8.1부터 Repository의 HTTP 요청이 허용되지 않음)
+Gradle 7.6.1
+NVM 0.39.3
+Python 3.11.3
